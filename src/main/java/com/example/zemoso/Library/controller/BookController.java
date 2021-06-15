@@ -32,6 +32,7 @@ public class BookController {
         return bookService.getRecentlyAddedTitles();
     }
 
+    //Below api is used to create books
     @PostMapping("/books")
     public ResponseEntity<Book> addNewBook(@RequestBody Book book) throws BookAlreadyPresentException {
         List<Book> bookVariable=bookService.getBookById(book.getBookName(),book.getAuthorId());
