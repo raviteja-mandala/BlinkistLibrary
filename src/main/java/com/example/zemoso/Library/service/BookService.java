@@ -2,6 +2,7 @@ package com.example.zemoso.Library.service;
 
 import com.example.zemoso.Library.entity.Book;
 import com.example.zemoso.Library.repository.BookRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class BookService {
     @Autowired
     BookRepository bookRepository;
@@ -19,6 +21,8 @@ public class BookService {
     }
 
     public List<Book> getBooksByTitle(String title){
+        log.info("inside book service, get books by Title");
+        //log.trace("trace inside book service, get books by Title");
         return bookRepository.findByTitleorAuthor(title,title);
     }
 

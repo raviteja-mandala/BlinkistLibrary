@@ -35,7 +35,7 @@ public class UserLibrary {
     @Column(name="LAST_UPDATE_DATE")
     private Date lastUpdateDate;
 
-    @Column(columnDefinition = "varchar(255) default 'CR'")
+    //@Column(columnDefinition = "varchar(255) default 'CR'")
     private String status;
 
 

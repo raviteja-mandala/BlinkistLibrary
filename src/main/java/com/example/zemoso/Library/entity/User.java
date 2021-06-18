@@ -3,6 +3,7 @@ package com.example.zemoso.Library.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,8 +27,8 @@ public class User {
     @Column(name="EMAIL_ID")
     private String emailId;
 
-    @OneToMany(mappedBy = "book",cascade = CascadeType.PERSIST)
-    private List<UserLibrary> books;
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
+    private List<UserLibrary> books=new ArrayList<UserLibrary>();
 
     public List<UserLibrary> getBooks() {
         return books;

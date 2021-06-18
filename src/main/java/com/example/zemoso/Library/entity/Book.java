@@ -1,6 +1,8 @@
 package com.example.zemoso.Library.entity;
 
 import com.sun.istack.NotNull;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="BOOK")
+@ApiModel(description = "Book Model")
 public class Book implements Serializable {
     public static final long serialId=123344L;
     public Book(){
@@ -29,6 +32,7 @@ public class Book implements Serializable {
     private int bookId;
 
     @Column(name="BOOK_NAME")
+    @ApiModelProperty(notes="title of book")
     private String bookName;
 
     @Column(name="CATEGORY_ID")
