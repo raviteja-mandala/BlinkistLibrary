@@ -29,7 +29,7 @@ public class AuthorController {
 
     @PostMapping("/blinkist/authors")
     public ResponseEntity<Author> addNewAuthor(@RequestBody @Valid AuthorDto authorDto) throws AuthorAlreadyExistsException, BookNotFoundException {
-        Optional<Author> authorOptional = null;
+        Optional<Author> authorOptional = Optional.empty();
         Author author = null;
         if (authorDto.getAuthorId() != 0) {
             authorOptional = authorService.getAuthorById(authorDto.getAuthorId());

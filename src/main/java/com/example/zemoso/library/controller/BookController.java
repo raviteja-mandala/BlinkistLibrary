@@ -45,7 +45,7 @@ public class BookController {
     //Below api is used to create books
     @PostMapping("/books")
     public ResponseEntity<Book> addNewBook(@RequestBody @Valid BookDto bookDto) throws BookAlreadyPresentException, AuthorNotFoundException {
-        Optional<Book> bookOptional=null;
+        Optional<Book> bookOptional=Optional.empty();
         Book book=null;
         if(bookDto.getBookId()!=0) {
             bookOptional = bookService.getBookById(bookDto.getBookId());
