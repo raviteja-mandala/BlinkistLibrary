@@ -1,5 +1,6 @@
 package com.example.zemoso.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.lang.NonNull;
@@ -7,6 +8,7 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "BOOK")
@@ -18,18 +20,8 @@ public class Book implements Serializable {
         //no-arg constructor needed for entity
     }
 
-    public Book(Book book) {
-        this.authorId = book.getAuthorId();
-        this.bookId = book.getBookId();
-        this.bookName = book.getBookName();
-        this.categoryId = book.getCategoryId();
-        this.categoryName = book.getCategoryName();
-        this.createdBy = "admin";
-        this.createdOn = new Date();
-    }
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "BOOK_ID")
     private int bookId;
 
@@ -42,12 +34,19 @@ public class Book implements Serializable {
 
     @Column(name = "CATEGORY_NAME")
     private String categoryName;
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+    private List<BookAuthor> bookAuthors;
 
-    @Column(name = "AUTHOR_ID")
-    private int authorId;
+    public List<BookAuthor> getBookAuthors() {
+        return bookAuthors;
+    }
+
+    public void setBookAuthors(List<BookAuthor> bookAuthors) {
+        this.bookAuthors = bookAuthors;
+    }
 
     private String createdBy;
-    @NonNull
+
     @Column(name = "CREATION_DATE")
     private Date createdOn;
 
@@ -90,14 +89,6 @@ public class Book implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-    }
-
-    public int getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
     }
 
     public String getCreatedBy() {

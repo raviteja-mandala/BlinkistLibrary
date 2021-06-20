@@ -1,5 +1,6 @@
 package com.example.zemoso.library.service;
 
+import com.example.zemoso.library.dto.UserDto;
 import com.example.zemoso.library.entity.User;
 import com.example.zemoso.library.repository.BookRepository;
 import com.example.zemoso.library.repository.UserRepository;
@@ -13,14 +14,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private BookRepository bookRepository;
-
-    public User addNewUser(User user) {
+    public User addNewUser(UserDto userDto) {
         var newUser = new User();
-        newUser.setUserName(user.getUserName());
-        newUser.setEmailId(user.getEmailId());
-        newUser.setPhoneNumber(user.getPhoneNumber());
+        newUser.setUserId(userDto.getUserId());
+        newUser.setUserName(userDto.getName());
+        newUser.setEmailId(userDto.getEmailId());
+        newUser.setPhoneNumber(userDto.getPhoneNumber());
         userRepository.save(newUser);
         return newUser;
     }

@@ -32,9 +32,8 @@ public class UserLibraryControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    @Commit
     public void addNewBookToUser() throws Exception {
-        String userBookJson = "{\"userBookId\": {\"userId\":111,\"bookId\":17}}";
+        String userBookJson = "{\"userId\":111,\"bookId\":17}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/blinkist/userLibrary")
                 .accept(MediaType.APPLICATION_JSON).content(userBookJson)
@@ -45,7 +44,7 @@ public class UserLibraryControllerTests {
 
     @Test
     public void addExistingBookToUser() throws Exception {
-        String userBookJson = "{\"userBookId\": {\"userId\":112,\"bookId\":17}}";
+        String userBookJson = "{\"userId\":112,\"bookId\":17}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/blinkist/userLibrary")
                 .accept(MediaType.APPLICATION_JSON).content(userBookJson)

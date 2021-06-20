@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@SpringBootTest
 @RunWith(Suite.class)
-@Suite.SuiteClasses({BookControllerTests.class,UserLibraryControllerTests.class})
+@Suite.SuiteClasses({BookControllerTests.class,AuthorControllerTests.class,BookAuthorControllerTests.class,UserLibraryControllerTests.class})
 class LibraryApplicationTests {
 
 	/*@Test

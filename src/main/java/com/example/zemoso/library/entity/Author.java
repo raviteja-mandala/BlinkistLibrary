@@ -1,11 +1,10 @@
 package com.example.zemoso.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Author {
@@ -14,15 +13,8 @@ public class Author {
         ////no-arg constructor needed for entity
     }
 
-    public Author(Author author) {
-        this.authorId = author.getAuthorId();
-        this.name = author.getName();
-        this.phoneNumber = author.getPhoneNumber();
-        this.emailId = author.getEmailId();
-    }
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "AUTHOR_ID")
     private int authorId;
 
@@ -32,6 +24,17 @@ public class Author {
 
     @Column(name = "EMAIL_ID")
     private String emailId;
+
+    public List<BookAuthor> getAuthorBooks() {
+        return authorBooks;
+    }
+
+    public void setAuthorBooks(List<BookAuthor> authorBooks) {
+        this.authorBooks = authorBooks;
+    }
+
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
+    private List<BookAuthor> authorBooks;
 
     public int getAuthorId() {
         return authorId;

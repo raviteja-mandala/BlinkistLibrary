@@ -9,6 +9,7 @@ import com.example.zemoso.library.repository.UserLibraryRepository;
 import com.example.zemoso.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,8 +39,9 @@ public class UserLibraryService {
         return userLibraryRepository.save(newUserLibrary);
     }
 
+
     public void deleteBookForUser(int userId, int bookId) {
-        userLibraryRepository.deleteById(new UserBookId(userId, bookId));
+        userLibraryRepository.deleteByUserIdAndBookId(userId, bookId);
     }
 
     public List<UserLibrary> getBookInUserLibrary(int userId, int bookId) {

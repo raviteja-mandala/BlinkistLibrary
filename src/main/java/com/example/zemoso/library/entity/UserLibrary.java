@@ -1,5 +1,7 @@
 package com.example.zemoso.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -23,6 +25,7 @@ public class UserLibrary {
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "USER_ID")
+    @JsonIgnore
     private User user;
 
     @ManyToOne

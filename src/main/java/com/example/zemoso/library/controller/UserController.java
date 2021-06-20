@@ -1,8 +1,10 @@
 package com.example.zemoso.library.controller;
 
+import com.example.zemoso.library.dto.UserDto;
 import com.example.zemoso.library.entity.Book;
 import com.example.zemoso.library.entity.User;
 import com.example.zemoso.library.entity.UserLibrary;
+import com.example.zemoso.library.exception.UserAlreadyPresentException;
 import com.example.zemoso.library.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +28,14 @@ public class UserController {
     public UserService userService;
 
     @PostMapping("/blinkist/user")
-    public ResponseEntity<User> addUsers(@RequestBody User user) {
-        return new ResponseEntity<>(userService.addNewUser(user), HttpStatus.CREATED);
+    public ResponseEntity<User> addUsers(@RequestBody @Valid UserDto userDto) throws UserAlreadyPresentException {
+        if(userDto.getUserId()!=0) {
+            Optional<User> userOptional=userService.getUser(userDto.getUserId());
+            if(userOptional.isPresent()){
+                throw new UserAlreadyPresentException("User already exists with user id "+userDto.getUserId());
+            }
+        }
+        return new ResponseEntity<>(userService.addNewUser(userDto), HttpStatus.CREATED);
     }
 
     @Nullable
@@ -41,7 +50,7 @@ public class UserController {
 
                 for (UserLibrary userLibrary : user.getBooks()) {
                     if ("All".equalsIgnoreCase(status) || userLibrary.getStatus().equalsIgnoreCase(status)) {
-                        bookListOfUser.add(new Book(userLibrary.getBook()));
+                        bookListOfUser.add(userLibrary.getBook());
                     }
                 }
                 responseEntity = new ResponseEntity<>(bookListOfUser, HttpStatus.FOUND);

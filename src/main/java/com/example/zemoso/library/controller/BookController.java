@@ -1,6 +1,8 @@
 package com.example.zemoso.library.controller;
 
+import com.example.zemoso.library.dto.BookDto;
 import com.example.zemoso.library.entity.Book;
+import com.example.zemoso.library.exception.AuthorNotFoundException;
 import com.example.zemoso.library.exception.BookAlreadyPresentException;
 import com.example.zemoso.library.service.BookService;
 import io.swagger.annotations.ApiOperation;
@@ -10,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/blinkist")
@@ -40,13 +44,24 @@ public class BookController {
 
     //Below api is used to create books
     @PostMapping("/books")
-    public ResponseEntity<Book> addNewBook(@RequestBody Book book) throws BookAlreadyPresentException {
-        List<Book> bookVariable = bookService.getBookById(book.getBookName(), book.getAuthorId());
-        if (!(bookVariable.isEmpty())) {
-            log.error("Book already exists");
-            throw new BookAlreadyPresentException("This book is already present");
-        } else {
-            return new ResponseEntity<>(bookService.createBook(book), HttpStatus.CREATED);
+    public ResponseEntity<Book> addNewBook(@RequestBody @Valid BookDto bookDto) throws BookAlreadyPresentException, AuthorNotFoundException {
+        Optional<Book> bookOptional=null;
+        Book book=null;
+        if(bookDto.getBookId()!=0) {
+            bookOptional = bookService.getBookById(bookDto.getBookId());
+
+            if (bookOptional.isPresent()){
+                log.error("Book already exists");
+                throw new BookAlreadyPresentException("Book already exists with this Id.");
+            }
+            else{
+                book=new Book();
+                book.setBookId(bookDto.getBookId());
+            }
+        }else {
+            book = new Book();
         }
+            return new ResponseEntity<>(bookService.createBook(book,bookDto), HttpStatus.CREATED);
+
     }
 }
