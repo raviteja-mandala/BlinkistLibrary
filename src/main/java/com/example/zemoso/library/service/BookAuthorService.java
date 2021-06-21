@@ -12,7 +12,6 @@ import com.example.zemoso.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,31 +28,29 @@ public class BookAuthorService {
     @Autowired
     AuthorRepository authorRepository;
 
-    public List<BookAuthor> getAuthorsOfBook(int authorId, int bookId){
-        return bookAuthorRepository.findByAuthorAndBook(authorId,bookId);
+    public List<BookAuthor> getAuthorsOfBook(int authorId, int bookId) {
+        return bookAuthorRepository.findByAuthorAndBook(authorId, bookId);
     }
 
     public BookAuthor addAuthorToBook(BookAuthor bookAuthor, BookAuthorDto bookAuthorDto) throws BookNotFoundException, AuthorNotFoundException {
-        Optional<Book> bookOptional=bookRepository.findById(bookAuthorDto.getBookId());
-        if(bookOptional.isPresent()){
+        Optional<Book> bookOptional = bookRepository.findById(bookAuthorDto.getBookId());
+        if (bookOptional.isPresent()) {
             bookAuthor.setBook(bookOptional.get());
+        } else {
+            throw new BookNotFoundException("Book with id " + bookAuthorDto.getBookId() + " does not exist.");
         }
-        else{
-            throw new BookNotFoundException("Book with id "+bookAuthorDto.getBookId()+" does not exist.");
-        }
-        Optional<Author> authorOptional=authorRepository.findById(bookAuthorDto.getAuthorId());
-        if(authorOptional.isPresent()){
+        Optional<Author> authorOptional = authorRepository.findById(bookAuthorDto.getAuthorId());
+        if (authorOptional.isPresent()) {
             bookAuthor.setAuthor(authorOptional.get());
-        }
-        else{
-            throw new AuthorNotFoundException("Author with id "+bookAuthorDto.getAuthorId()+" does not exist.");
+        } else {
+            throw new AuthorNotFoundException("Author with id " + bookAuthorDto.getAuthorId() + " does not exist.");
         }
         bookAuthor.setCreatedOn(new Date());
         return bookAuthorRepository.save(bookAuthor);
     }
 
-    public void deleteAuthorForBook(int authorId, int bookId){
-        bookAuthorRepository.deleteByAuthorIdAndBookId(authorId,bookId);
+    public void deleteAuthorForBook(int authorId, int bookId) {
+        bookAuthorRepository.deleteByAuthorIdAndBookId(authorId, bookId);
     }
 
 }

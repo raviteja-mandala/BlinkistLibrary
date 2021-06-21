@@ -1,14 +1,14 @@
 package com.example.zemoso.library.entity;
 
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "USER")
 public class User {
+    public static final long SERIALID = 123344L;
 
     public User() {
         // no-arg constructor needed for entity.
@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue
     private int userId;
 
-    @NonNull
+    @NotNull
     @Column(name = "USER_NAME")
     private String userName;
 

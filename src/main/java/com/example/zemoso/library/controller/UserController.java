@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,18 +28,18 @@ public class UserController {
 
     @PostMapping("/blinkist/user")
     public ResponseEntity<User> addUsers(@RequestBody @Valid UserDto userDto) throws UserAlreadyPresentException {
-        if(userDto.getUserId()!=0) {
-            Optional<User> userOptional=userService.getUser(userDto.getUserId());
-            if(userOptional.isPresent()){
-                throw new UserAlreadyPresentException("User already exists with user id "+userDto.getUserId());
+        if (userDto.getUserId() != 0) {
+            Optional<User> userOptional = userService.getUser(userDto.getUserId());
+            if (userOptional.isPresent()) {
+                throw new UserAlreadyPresentException("User already exists with user id " + userDto.getUserId());
             }
         }
         return new ResponseEntity<>(userService.addNewUser(userDto), HttpStatus.CREATED);
     }
 
-    @Nullable
+
     @GetMapping("/blinkist/user/{userid}/books/{status}")
-    public  ResponseEntity<List<Book>> getBooksOfUser(@PathVariable("userid") int userId, @PathVariable("status") String status) {
+    public ResponseEntity<List<Book>> getBooksOfUser(@PathVariable("userid") int userId, @PathVariable("status") String status) {
         Optional<User> userOptional = userService.getUser(userId);
         ResponseEntity<List<Book>> responseEntity = null;
         if (userOptional.isPresent()) {

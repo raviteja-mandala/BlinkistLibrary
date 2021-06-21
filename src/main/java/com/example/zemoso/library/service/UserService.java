@@ -2,7 +2,6 @@ package com.example.zemoso.library.service;
 
 import com.example.zemoso.library.dto.UserDto;
 import com.example.zemoso.library.entity.User;
-import com.example.zemoso.library.repository.BookRepository;
 import com.example.zemoso.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

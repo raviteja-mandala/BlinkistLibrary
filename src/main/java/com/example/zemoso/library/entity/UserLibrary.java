@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "USER_BOOK")
 public class UserLibrary {
-    public static final long serialId = 12465778L;
+    public static final long SERIALID = 12465778L;
 
     public UserLibrary() {
         //no-arg constructor needed for entity
@@ -36,8 +36,7 @@ public class UserLibrary {
     @Column(name = "LAST_UPDATE_DATE")
     private Date lastUpdateDate;
 
-    //@Column(columnDefinition = "varchar(255) default 'CR'")
-    private String status;
+    private String status = "CR";
 
 
     public String getStatus() {

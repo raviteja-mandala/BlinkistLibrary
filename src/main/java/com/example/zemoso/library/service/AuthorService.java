@@ -4,14 +4,12 @@ import com.example.zemoso.library.dto.AuthorDto;
 import com.example.zemoso.library.entity.Author;
 import com.example.zemoso.library.entity.Book;
 import com.example.zemoso.library.entity.BookAuthor;
-import com.example.zemoso.library.exception.AuthorNotFoundException;
 import com.example.zemoso.library.exception.BookNotFoundException;
 import com.example.zemoso.library.repository.AuthorRepository;
 import com.example.zemoso.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +37,7 @@ public class AuthorService {
         author.setName(authorDto.getName());
         author.setEmailId(authorDto.getEmailId());
         var bookAuthorsList= new ArrayList<BookAuthor>();
-        Optional<Book> bookOptional= Optional.empty();
+        Optional<Book> bookOptional;
         BookAuthor bookAuthor=null;
         for(var bookId : authorDto.getBookIds()){
             bookOptional=bookRepository.findById(bookId);

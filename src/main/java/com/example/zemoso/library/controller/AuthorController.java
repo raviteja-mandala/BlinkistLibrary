@@ -29,13 +29,13 @@ public class AuthorController {
 
     @PostMapping("/blinkist/authors")
     public ResponseEntity<Author> addNewAuthor(@RequestBody @Valid AuthorDto authorDto) throws AuthorAlreadyExistsException, BookNotFoundException {
-        Optional<Author> authorOptional = Optional.empty();
+        Optional<Author> authorOptional;
         Author author = null;
         if (authorDto.getAuthorId() != 0) {
             authorOptional = authorService.getAuthorById(authorDto.getAuthorId());
 
             if (authorOptional.isPresent()) {
-                throw new AuthorAlreadyExistsException("Author already exists with Id : "+authorDto.getAuthorId()+".");
+                throw new AuthorAlreadyExistsException("Author already exists with Id : " + authorDto.getAuthorId() + ".");
             } else {
                 author = new Author();
                 author.setAuthorId(authorDto.getAuthorId());
@@ -47,7 +47,7 @@ public class AuthorController {
     }
 
     @GetMapping("/blinkist/authors")
-    public ResponseEntity<List<Author>> getAllAuthors(){
-        return new ResponseEntity<>(authorService.getAllAuthors(),HttpStatus.OK);
+    public ResponseEntity<List<Author>> getAllAuthors() {
+        return new ResponseEntity<>(authorService.getAllAuthors(), HttpStatus.OK);
     }
 }

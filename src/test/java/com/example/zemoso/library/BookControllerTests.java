@@ -4,14 +4,12 @@ import com.example.zemoso.library.exception.AuthorNotFoundException;
 import com.example.zemoso.library.exception.BookAlreadyPresentException;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -24,17 +22,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @ActiveProfiles("junits")
 @AutoConfigureMockMvc
 @Transactional
 @Sql(scripts = "classpath:data-tests.sql")
-public class BookControllerTests {
+class BookControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-   @Test
-    public void getBooksByTitleTest() throws Exception {
+    @Test
+    void getBooksByTitleTest() throws Exception {
         //Mockito.when(bookRepository.findByTitleorAuthor("zoology","zoology")).thenReturn(books);
         RequestBuilder requestBuilder = get(
                 "/blinkist/books/title/Physics").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
@@ -44,7 +41,7 @@ public class BookControllerTests {
     }
 
     @Test
-    public void getBooksByCategory() throws Exception {
+    void getBooksByCategory() throws Exception {
         //Mockito.when(bookRepository.findByCategoryName("Education")).thenReturn(books);
         RequestBuilder requestBuilder = get(
                 "/blinkist/books/category/Science").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
@@ -54,20 +51,20 @@ public class BookControllerTests {
     }
 
     @Test
-    public void addNewBook() throws Exception {
-        String bookJson="{\"bookTitle\":\"Biology\",\"authorIds\":[29],\"categoryId\":2,\"categoryName\":\"Medicine\"}";
+    void addNewBook() throws Exception {
+        String bookJson = "{\"bookTitle\":\"Biology\",\"authorIds\":[29],\"categoryId\":2,\"categoryName\":\"Medicine\"}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/blinkist/books")
                 .accept(MediaType.APPLICATION_JSON).content(bookJson)
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder).andExpect(status().isCreated()).andExpect(
-                MockMvcResultMatchers.jsonPath("$.bookName",Matchers.equalTo("Biology")));
+                MockMvcResultMatchers.jsonPath("$.bookName", Matchers.equalTo("Biology")));
 
     }
 
     @Test
-    public void addExistingBook() throws Exception {
-        String bookJson="{\"bookId\":17,\"bookTitle\":\"Physics\",\"authorIds\":[201],\"categoryId\":2,\"categoryName\":\"Medicine\"}";
+    void addExistingBook() throws Exception {
+        String bookJson = "{\"bookId\":17,\"bookTitle\":\"Physics\",\"authorIds\":[201],\"categoryId\":2,\"categoryName\":\"Medicine\"}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/blinkist/books")
                 .accept(MediaType.APPLICATION_JSON).content(bookJson)
@@ -78,8 +75,8 @@ public class BookControllerTests {
     }
 
     @Test
-    public void addBookWithInvalidAuthor() throws Exception {
-        String bookJson="{\"bookTitle\":\"Statistics\",\"authorIds\":[345],\"categoryId\":2,\"categoryName\":\"Maths\"}";
+    void addBookWithInvalidAuthor() throws Exception {
+        String bookJson = "{\"bookTitle\":\"Statistics\",\"authorIds\":[345],\"categoryId\":2,\"categoryName\":\"Maths\"}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/blinkist/books")
                 .accept(MediaType.APPLICATION_JSON).content(bookJson)
@@ -88,8 +85,6 @@ public class BookControllerTests {
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof AuthorNotFoundException));
 
     }
-
-
 
 
 }

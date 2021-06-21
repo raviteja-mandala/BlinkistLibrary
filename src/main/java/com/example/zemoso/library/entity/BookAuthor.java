@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name="BOOK_AUTHOR")
 public class BookAuthor {
-    public static final long serialId = 123344L;
+    public static final long SERIALID = 123344L;
     public BookAuthor(){
         // no arg constructor needed for entity
     }

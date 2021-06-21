@@ -9,7 +9,6 @@ import com.example.zemoso.library.repository.UserLibraryRepository;
 import com.example.zemoso.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,15 +26,11 @@ public class UserLibraryService {
     public UserRepository userRepository;
 
     public UserLibrary addBookToUser(int bookId, int userId) {
-        UserLibrary newUserLibrary = new UserLibrary(new UserBookId(userId, bookId));
+        var newUserLibrary = new UserLibrary(new UserBookId(userId, bookId));
         Optional<Book> bookOptional = bookRepository.findById(bookId);
-        if (bookOptional.isPresent()) {
-            newUserLibrary.setBook(bookOptional.get());
-        }
+        bookOptional.ifPresent(newUserLibrary::setBook);
         Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            newUserLibrary.setUser(userOptional.get());
-        }
+        userOptional.ifPresent(newUserLibrary::setUser);
         return userLibraryRepository.save(newUserLibrary);
     }
 

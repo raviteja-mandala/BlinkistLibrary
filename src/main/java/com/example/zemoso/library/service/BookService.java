@@ -49,7 +49,7 @@ public class BookService {
         book.setCreatedOn(new Date());
         book.setCategoryId(bookDto.getCategoryId());
         book.setCategoryName(bookDto.getCategoryName());
-        Optional<Author> authorOptional=Optional.empty();
+        Optional<Author> authorOptional;
         BookAuthor bookAuthor=null;
         var listOfAuthorsForBook=new ArrayList<BookAuthor>();
         for(var authorId : bookDto.getAuthorIds()){
@@ -69,6 +69,4 @@ public class BookService {
         bookRepository.save(book);
         return book;
     }
-
-
 }

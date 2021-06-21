@@ -4,7 +4,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 @Embeddable
 public class UserBookId implements Serializable {
-
+    public static final long SERIALID = 123344L;
     public UserBookId(){
         //no-arg constructor needed for entity
     }

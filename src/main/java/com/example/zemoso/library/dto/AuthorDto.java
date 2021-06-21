@@ -2,21 +2,20 @@ package com.example.zemoso.library.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthorDto {
 
     private int authorId;
-    @NotEmpty(message="Author name should be provided.")
+    @NotEmpty(message = "Author name should be provided.")
     private String name;
-    @Pattern(regexp="\\d{10}", message="Phone number is invalid.")
+    @Pattern(regexp = "\\d{10}", message = "Phone number is invalid.")
     private String phoneNumber;
-    @Pattern(regexp="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$", message="Email id provided is invalid.")
-    @NotEmpty(message="Email id is mandatory for the author.")
+    @Pattern(regexp = "^[\\w-\\+]*@[\\w-]+(\\.[a-z]{2,})$", message = "Email id provided is invalid.")
+    @NotEmpty(message = "Email id is mandatory for the author.")
     private String emailId;
 
     private List<Integer> bookIds;
@@ -28,7 +27,6 @@ public class AuthorDto {
     public void setBookIds(List<Integer> bookIds) {
         this.bookIds = bookIds;
     }
-
 
 
     public int getAuthorId() {

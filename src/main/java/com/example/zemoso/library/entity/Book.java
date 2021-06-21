@@ -1,9 +1,7 @@
 package com.example.zemoso.library.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +12,7 @@ import java.util.List;
 @Table(name = "BOOK")
 @ApiModel(description = "Book Model")
 public class Book implements Serializable {
-    public static final long serialId = 123344L;
+    public static final long SERIALID = 123344L;
 
     public Book() {
         //no-arg constructor needed for entity

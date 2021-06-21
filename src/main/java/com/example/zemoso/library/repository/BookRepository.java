@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book,Integer> {
 
-    //@Query("Select u FROM Book u where categoryName= ?1")
     List<Book> findByCategoryName(String categoryName);
 
     @Query(value = "Select * from book where book_name= :title OR book_id IN (SELECT book_id FROM book_author,author WHERE name= :authorName and " +
@@ -19,7 +18,4 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     @Override
     List<Book> findAll(Sort sort);
 
-   // List<Book> findAllOrderByCreatedOnDesc();
-
-    //List<Book> findByBookNameAndAuthorId(String bookName, Integer authorId);
 }

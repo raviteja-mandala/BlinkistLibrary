@@ -1,14 +1,12 @@
 package com.example.zemoso.library.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 public class Author {
-
+    public static final long SERIALID = 123344L;
     public Author() {
         ////no-arg constructor needed for entity
     }
@@ -18,12 +16,14 @@ public class Author {
     @Column(name = "AUTHOR_ID")
     private int authorId;
 
-
-    @NonNull
+    @NotNull
     private String name;
 
     @Column(name = "EMAIL_ID")
     private String emailId;
+
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
 
     public List<BookAuthor> getAuthorBooks() {
         return authorBooks;
@@ -33,7 +33,7 @@ public class Author {
         this.authorBooks = authorBooks;
     }
 
-    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<BookAuthor> authorBooks;
 
     public int getAuthorId() {
@@ -67,8 +67,5 @@ public class Author {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    @Column(name = "PHONE_NUMBER")
-    private String phoneNumber;
 
 }
