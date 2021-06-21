@@ -33,4 +33,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: sudo mvn -B package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=raviteja-mandala -Dsonar.login=56158cf549c771d7135e30b9584952e1f63874ea -Dsonar.projectKey=raviteja-mandala_BlinkistLibrary
+        run: sudo mvn -B test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=raviteja-mandala -Dsonar.login=56158cf549c771d7135e30b9584952e1f63874ea -Dsonar.projectKey=raviteja-mandala_BlinkistLibrary
