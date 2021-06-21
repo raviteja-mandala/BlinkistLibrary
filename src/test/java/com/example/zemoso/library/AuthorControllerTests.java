@@ -66,7 +66,7 @@ public class AuthorControllerTests {
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof BookNotFoundException));
     }
 
-    @Test
+   /* @Test
     public void getAllAuthors() throws Exception {
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -75,5 +75,5 @@ public class AuthorControllerTests {
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk()).andExpect(jsonPath("$", Matchers.hasSize(2)));
-    }
+    }*/
 }
