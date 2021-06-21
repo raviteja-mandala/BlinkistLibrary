@@ -1,6 +1,5 @@
 package com.example.zemoso.library;
 
-import com.example.zemoso.library.controller.AuthorController;
 import com.example.zemoso.library.exception.AuthorAlreadyExistsException;
 import com.example.zemoso.library.exception.BookNotFoundException;
 import org.hamcrest.Matchers;
@@ -31,7 +30,7 @@ public class AuthorControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-   /* @Test
+    @Test
     public void addNewAuthor() throws Exception {
         String authorJson = "{\"authorId\" : 322,\"name\":\"Surya\",\"bookIds\":[17],\"emailId\":\"surya@xyz.com\",\"phoneNumber\":\"9898980099\"}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -40,7 +39,7 @@ public class AuthorControllerTests {
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder).andExpect(status().isCreated()).andExpect(
                 MockMvcResultMatchers.jsonPath("$.name", Matchers.equalTo("Surya")));
-    }*/
+    }
 
     @Test
     public void addExistingAuthor() throws Exception {
@@ -54,7 +53,7 @@ public class AuthorControllerTests {
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof AuthorAlreadyExistsException));
     }
 
-    /*@Test
+    @Test
     public void addAuthorWithInvalidBook() throws Exception {
 
         String bookJson = "{\"name\":\"Dhoni\",\"emailId\":\"dhoni@xyz.com\",\"phoneNumber\":\"9898980099\",\"bookIds\":[87]}";
@@ -75,5 +74,5 @@ public class AuthorControllerTests {
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk()).andExpect(jsonPath("$", Matchers.hasSize(2)));
-    }*/
+    }
 }
